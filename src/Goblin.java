@@ -11,7 +11,7 @@ public class Goblin extends Unit{
 
     @Override
     public String getName() {
-        return name;
+        return name + " (" +  health + ")";
     }
 
     @Override

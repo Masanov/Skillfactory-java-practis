@@ -29,41 +29,43 @@ public class Main {
                     System.out.println("Торговец еще не вышел на работу");
                     break;
                 case 2 :
-                    System.out.println("Идём в темный лес");
-                    double randm = random();
-                    Unit enemy;
-                    if(randm > 0.5) {
-                        enemy = new Goblin();
+                    Boolean intoForest = true;
+                    while(intoForest) {
+                        System.out.println("Идём в темный лес");
+                        double randm = random();
+                        Unit enemy;
+                        if(randm > 0.5) {
+                            enemy = new Goblin();
 
-                    } else {enemy = new Skelete();}
-                    System.out.println("В темном лесу вас встречает " + enemy.getName());
-                    Fight fight = new Fight(enemy, hero);
-                    Thread thread = new Thread(fight);
-                    thread.start();
-                    thread.join();
-                    if(fight.result == 0) {
-                        active = false;
-                    } else if (fight.result == 2) {
-                        //levelup
-                        hero.setExperience(hero.getExperience() + 100);
-                        System.out.println("Опыт героя растет, теперь у героя " + hero.getExperience() + " единиц опыта");
-                        if(hero.getExperience() > 99 && hero.getExperience() < 200) {
-                            hero.setSkill(8);
-                            hero.setPower(150);
-                            System.out.println("Ловкость героя " + hero.getSkill() + " единиц");
-                        } else if (hero.getExperience() > 199 && hero.getExperience() < 300) {
-                            hero.setSkill(10);
-                            hero.setPower(250);
-                            System.out.println("Ловкость героя " + hero.getSkill() + " единиц");
-                        } else if (hero.getExperience() > 299 && hero.getExperience() < 400) {
-                            hero.setSkill(12);
-                            hero.setPower(300);
-                            System.out.println("Ловкость героя " + hero.getSkill() + " единиц");
+                        } else {enemy = new Skelete();}
+                        System.out.println("В темном лесу вас встречает " + enemy.getName());
+
+                        Fight fight = new Fight(enemy, hero);
+                        Thread thread = new Thread(fight);
+                        thread.start();
+                        thread.join();
+                        if(fight.result == 0) {
+                            active = false;
+                        } else if (fight.result == 2) {
+                            //levelup
+                            hero.levelUp();
+                            System.out.println("Куда вы хотите пойти?");
+                            System.out.println("1. Вернуться в город");
+                            System.out.println("2. Продолжить торговлю/бой");
+                            int step = scanner.nextInt();
+                            switch(step) {
+                                case 1 :
+                                    intoForest = false;
+                                    break;
+                                case 2 :
+                                    continue;
+
+                            }
                         }
-                        hero.setGold(hero.getGold() + 50);
-                        System.out.println("Герой получает 50 единиц золота. Запасы золота: " + hero.getGold());
+                        break;
 
                     }
+
                     break;
                 case 3 : active = false;
             }

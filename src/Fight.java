@@ -11,16 +11,16 @@ public class Fight implements Runnable {
 
     @Override
     public void run() {
-        while (enemy.getHealth() > 0 || hero.getHealth() > 0) {
+        while (enemy.getHealth() >= 0 || hero.getHealth() >= 0) {
 
             try {
                 enemy.attack(hero);
-                if(enemy.getHealth() < 0) {
+                if(enemy.getHealth() <= 0) {
                     System.out.println(hero.getName() + " победил чудовище!");
                     System.out.println();
                     result = 2;
                     break;
-                } else if(hero.getHealth() < 0) {
+                } else if(hero.getHealth() <= 0) {
                     System.out.println("Вы проиграли");
                     result = 0;
                     break;
@@ -30,11 +30,11 @@ public class Fight implements Runnable {
 
                 Thread.sleep(200); // 1
                 hero.attack(enemy);
-                if(enemy.getHealth() < 0) {
+                if(enemy.getHealth() <= 0) {
                     System.out.println(hero.getName() + " победил чудовище!");
                     result = 2;
                     break;
-                } else if(hero.getHealth() < 0) {
+                } else if(hero.getHealth() <= 0) {
                     System.out.println("Вы проиграли");
                     result = 0;
                     break;

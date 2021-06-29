@@ -60,12 +60,15 @@ abstract class Unit {
 
     public void attack(Unit target) {
         double randm = random()*100;
-        //System.out.println(randm);
-        //System.out.println(this.getSkill() + "    " + this.getSkill()*3);
-        if (this.getSkill()*3 > randm) {
-            target.setHealth(target.getHealth() - this.getPower());
+        if (this.getSkill()*2 > randm) {
+            //Критический удар
+            System.out.println(this.getName() + " наносит Критический удар по " + target.getName() + " и отнимает " + (this.getPower()*2) + " единиц здоровья.");
+            target.setHealth(target.getHealth() - (this.getPower()*2));
+        } else if (this.getSkill()*3 > randm) {
+
             System.out.println(this.getName() + " наносит удар по " + target.getName() + " и отнимает " + this.getPower() + " единиц здоровья.");
-        } else {
+            target.setHealth(target.getHealth() - this.getPower());
+        }  else {
             System.out.println(this.getName() + " наносит удар, но промахивается");
         }
     }
